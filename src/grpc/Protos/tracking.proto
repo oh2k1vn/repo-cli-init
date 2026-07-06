@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option csharp_namespace = "OptiFlowSVC.Grpc.Protos";
+
+package tracking;
+
+import "Protos/common.proto";
+
+service TrackingService {
+  rpc IngestEvent (UserEventRequest) returns (common.OperationResult);
+}
+
+message UserEventRequest {
+  string url = 1;
+  string action = 2;
+  string element_id = 3;
+  string session_id = 4;
+  string user_agent = 5;
+  string ip_address = 6;
+  string referrer = 7;
+  string metadata_json = 8; // Metadata as JSON string for gRPC
+}

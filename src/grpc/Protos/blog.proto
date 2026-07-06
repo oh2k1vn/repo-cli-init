@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+option csharp_namespace = "OptiFlowSVC.Grpc.Protos";
+
+import "Protos/common.proto";
+import "google/protobuf/timestamp.proto";
+
+package blog;
+
+service BlogService {
+  rpc GetBlogsByQuery (common.CommonQuery) returns (BlogDataSourceResponse);
+  rpc GetBlogDetail (common.GetBySlugRequest) returns (BlogResponseWrapped);
+  rpc GetBlogsByBlogGroupSlug (common.GetBySlugPagedRequest) returns (BlogDataSourceResponse);
+  rpc GetBlogGroupsByQuery (common.CommonQuery) returns (BlogGroupDataSourceResponse);
+  rpc GetBlogGroupsBySlug (common.GetBySlugRequest) returns (BlogGroupResponseWrapped);
+}
+
+message BlogResponse {
+  string id = 1;
+  string title = 2;
+  string slug = 3;
+  string img_url = 4;
+  string short_description = 5;
+  string content = 6;
+  string author = 7;
+  google.protobuf.Timestamp created_at = 8;
+  google.protobuf.Timestamp updated_at = 9;
+  repeated string tags = 10;
+  string status = 11;
+  google.protobuf.Timestamp published_at = 12;
+  int32 views = 13;
+  string image_alt = 14;
+  reserved 15, 16, 17;
+  string blog_group_id = 18;
+  string type = 19;
+  string template = 20;
+  string org_id = 21;
+  string created_by = 22;
+  string updated_by = 23;
+  map<string, string> extend_object = 24;
+  string package_index = 25;
+}
+
+message BlogGroupResponse {
+  string id = 1;
+  string name = 2;
+  string url = 3;
+  string description = 4;
+  string content = 5;
+  string status = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+  string org_id = 9;
+  repeated BlogResponse blogs = 10;
+  string created_by = 11;
+  string updated_by = 12;
+  map<string, string> extend_object = 13;
+  repeated string blog_ids = 14;
+  string group_by = 15;
+  string operator = 16;
+  repeated common.CommonCriteria criteria = 17;
+  string package_index = 18;
+}
+
+message BlogDataSourceResponse {
+  common.CommonDataSourceMeta meta = 1;
+  repeated BlogResponse data = 2;
+}
+
+message BlogGroupDataSourceResponse {
+  common.CommonDataSourceMeta meta = 1;
+  repeated BlogGroupResponse data = 2;
+}
+
+
+
+message BlogResponseWrapped {
+  bool success = 1;
+  string message = 2;
+  BlogResponse data = 3;
+}
+
+message BlogGroupResponseWrapped {
+  bool success = 1;
+  string message = 2;
+  BlogGroupResponse data = 3;
+}

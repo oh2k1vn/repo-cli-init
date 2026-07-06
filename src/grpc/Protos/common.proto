@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+option csharp_namespace = "OptiFlowSVC.Grpc.Protos";
+
+package common;
+
+// Common message types shared across services
+
+message Empty {}
+
+message PageRequest {
+  int32 page = 1;
+  int32 page_size = 2;
+  string sort_by = 3;
+  bool descending = 4;
+}
+
+message PageResponse {
+  int32 total_count = 1;
+  int32 page = 2;
+  int32 page_size = 3;
+  int32 total_pages = 4;
+}
+
+message StringValue {
+  string value = 1;
+}
+
+message IdRequest {
+  string id = 1;
+}
+
+message OperationResult {
+  bool success = 1;
+  string message = 2;
+  string id = 3;
+}
+
+message CommonQuery {
+  int32 page_number = 1;
+  int32 page_size = 2;
+  repeated CommonCriteria criteria = 3;
+  CommonSort sort = 4;
+  string operator = 5;
+}
+
+message CommonCriteria {
+  string field = 1;
+  string value = 2; // Value as string for simplicity
+  string type = 3;
+}
+
+message CommonSort {
+  string field = 1;
+  string order = 2;
+}
+
+message CommonDataSourceMeta {
+  bool success = 1;
+  int32 total = 2;
+  int32 page_number = 3;
+  int32 page_size = 4;
+  string message = 5;
+}
+
+message GetBySlugPagedRequest {
+  string slug = 1;
+  int32 page_number = 2;
+  int32 page_size = 3;
+}
+
+message GetBySlugRequest {
+  string slug = 1;
+}

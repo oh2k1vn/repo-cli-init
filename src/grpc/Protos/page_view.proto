@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option csharp_namespace = "OptiFlowSVC.Grpc.Protos";
+
+import "Protos/common.proto";
+
+package page_view;
+
+service PageViewService {
+  rpc GetPageView (GetPageViewRequest) returns (PageViewResponse);
+}
+
+message GetPageViewRequest {
+  string ref = 1;
+}
+
+message PageViewResponse {
+  bool success = 1;
+  string message = 2;
+  PageViewData data = 3;
+}
+
+message PageViewData {
+  string id = 1;
+  repeated string ref_id = 2;
+  repeated string ref_slug = 3;
+  string config = 4;
+}

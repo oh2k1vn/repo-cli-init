@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+option csharp_namespace = "OptiFlowSVC.Grpc.Protos";
+
+package auth;
+
+import "google/protobuf/timestamp.proto";
+
+service AuthService {
+  rpc Login (LoginRequest) returns (LoginResponse);
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+  bool is_firebase_auth = 3;
+  string firebase_user_json = 4;
+}
+
+message LoginResponse {
+  bool success = 1;
+  string message = 2;
+  LoginData data = 3;
+}
+
+message LoginData {
+  string token = 1;
+  UserAccount user = 2;
+  repeated string permissions = 3;
+  string org_id = 4;
+}
+
+message UserAccount {
+  string id = 1;
+  string email = 2;
+  string display_name = 3;
+  string avatar_url = 4;
+  string phone_number = 5;
+  string status = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+  google.protobuf.Timestamp expired_at = 9;
+  string org_id = 10;
+  string created_by = 11;
+  string updated_by = 12;
+}

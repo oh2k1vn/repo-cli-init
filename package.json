@@ -2,9 +2,12 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "proto:generate": "npx protoc --ts_out src/grpc/proto --proto_path src/grpc --proto_path src/grpc/Protos src/grpc/Protos/auth.proto src/grpc/Protos/blog.proto src/grpc/Protos/comment.proto src/grpc/Protos/common.proto src/grpc/Protos/order.proto src/grpc/Protos/page_view.proto src/grpc/Protos/product.proto src/grpc/Protos/seo.proto src/grpc/Protos/tracking.proto src/grpc/Protos/user_submit.proto"
   },
   "dependencies": {
+    "@protobuf-ts/grpcweb-transport": "^2.11.1",
+    "@protobuf-ts/runtime-rpc": "^2.11.1",
     "@tailwindcss/postcss": "^4.3.2",
     "next": "^16.2.10",
     "react": "^19.2.7",
@@ -12,9 +15,11 @@
     "tailwindcss": "^4.3.2"
   },
   "devDependencies": {
+    "@protobuf-ts/plugin": "^2.11.1",
     "@types/node": "^26.1.0",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
+    "protoc": "^1.1.3",
     "typescript": "^6.0.3"
   }
 }

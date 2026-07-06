@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+option csharp_namespace = "OptiFlowSVC.Grpc.Protos";
+
+package comment;
+
+import "google/protobuf/timestamp.proto";
+
+service CommentService {
+  rpc CreateComment (CreateCommentRequest) returns (CreateCommentResponse);
+  rpc GetCommentsByRef (GetCommentsByRefRequest) returns (GetCommentsByRefResponse);
+}
+
+message CreateCommentRequest {
+  string ref_id = 1;
+  string ref_type = 2; // blog, product, ...
+  string content = 3;
+}
+
+message CreateCommentResponse {
+  bool success = 1;
+  string message = 2;
+  CommentData data = 3;
+}
+
+message GetCommentsByRefRequest {
+  string ref_id = 1;
+  string ref_type = 2;
+  int32 page_number = 3;
+  int32 page_size = 4;
+}
+
+message GetCommentsByRefResponse {
+  bool success = 1;
+  string message = 2;
+  repeated CommentData data = 3;
+}
+
+message CommentData {
+  string id = 1;
+  string ref_id = 2;
+  string ref_type = 3;
+  string user_id = 4;
+  string user_display_name = 5;
+  string user_avatar_url = 6;
+  string content = 7;
+  string status = 8;
+  google.protobuf.Timestamp created_at = 9;
+  string rejection_reason = 10;
+  google.protobuf.Timestamp updated_at = 11;
+  string org_id = 12;
+  string created_by = 13;
+  string updated_by = 14;
+}

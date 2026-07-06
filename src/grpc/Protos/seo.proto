@@ -1,0 +1,152 @@
+syntax = "proto3";
+
+option csharp_namespace = "OptiFlowSVC.Grpc.Protos";
+
+import "Protos/common.proto";
+import "google/protobuf/timestamp.proto";
+
+package seo;
+
+service SeoService {
+  // Global Config
+  rpc GetGlobalConfig (common.Empty) returns (SeoGlobalConfigResponse);
+
+  // Page Config (merged)
+  rpc GetMetaByUrl (GetMetaByUrlRequest) returns (SeoPageConfigResponse);
+  
+  // Sitemap Data
+  rpc GetSitemapData (GetSitemapDataRequest) returns (SitemapDataResponse);
+
+}
+
+message GetMetaByUrlRequest {
+  string url = 1;
+}
+
+message GetSitemapDataRequest {
+  string url = 1;  // Base URL (e.g., https://optiflow.vn, https://optiflow.vn/api/sitemap?path={slug}.xml,...)
+}
+
+message SeoGlobalConfigResponse {
+  bool success = 1;
+  string message = 2;
+  SeoGlobalConfigData data = 3;
+}
+
+message SeoPageConfigResponse {
+  bool success = 1;
+  string message = 2;
+  SeoPageConfigData data = 3;
+}
+
+message SitemapDataResponse {
+  bool success = 1;
+  string message = 2;
+  string xml_content = 3;
+}
+
+// Data Structures matching DTOs
+message SeoGlobalConfigData {
+  string default_title = 1;
+  string title_template = 2;
+  string default_description = 3;
+  string default_image = 4;
+  string robots_txt_content = 5;
+  string google_site_verification_id = 6;
+  map<string, string> social_links = 7;
+  SeoScriptsData scripts = 8;
+  string schema_markup = 9;
+  string locale = 10;
+  string site_name = 11;
+  string domain = 12;
+  string org_id = 13;
+  string description = 14;
+  SeoAddressData address = 15;
+  string founder = 16;
+  string number_of_employees = 17;
+  string brand_name = 18;
+  string geo_latitude = 19;
+  string geo_longitude = 20;
+  string google_maps_url = 21;
+  repeated SeoContactPointData contact_points = 22;
+  SeoLogoData logo = 23;
+  SeoOpenGraphData open_graph = 24;
+  google.protobuf.Timestamp created_at = 25;
+  google.protobuf.Timestamp updated_at = 26;
+  string created_by = 27;
+  string updated_by = 28;
+  string theme = 29;
+  string layout = 30;
+}
+
+message SeoScriptsData {
+  string header = 1;
+  string body_start = 2;
+  string body_end = 3;
+}
+
+message SeoPageConfigData {
+  string route = 1;
+  string title = 2;
+  string description = 3;
+  string canonical_url = 4;
+  string schema_markup = 5;
+  bool is_amp_enabled = 6;
+  SeoRobotsMetaData robots = 7;
+  SeoOpenGraphData open_graph = 8;
+  SeoSitemapConfigData sitemap = 9;
+  string entity_type = 10;
+  string entity_id = 11;
+  string org_id = 12;
+  google.protobuf.Timestamp created_at = 13;
+  google.protobuf.Timestamp updated_at = 14;
+  string created_by = 15;
+  string updated_by = 16;
+  repeated string keyword_list = 17;
+}
+
+message SeoRobotsMetaData {
+  bool index = 1;
+  bool follow = 2;
+  int32 max_snippet = 3;
+  string max_image_preview = 4;
+  int32 max_video_preview = 5;
+}
+
+message SeoOpenGraphData {
+  string title = 1;
+  string description = 2;
+  string image = 3;
+  string type = 4;
+  string locale = 5;
+  string site_name = 6;
+  string url = 7;
+  google.protobuf.Timestamp updated_time = 8;
+}
+
+message SeoSitemapConfigData {
+  bool include = 1;
+  string change_freq = 3;
+}
+
+message SeoAddressData {
+  string street_address = 1;
+  string address_region = 2;
+  string postal_code = 3;
+  string address_country = 4;
+}
+
+message SeoContactPointData {
+  string telephone = 1;
+  string contact_type = 2;
+  string email = 3;
+  string area_served = 4;
+}
+
+message SeoLogoData {
+  string url = 1;
+  string caption = 2;
+  string width = 3;
+  string height = 4;
+}
+
